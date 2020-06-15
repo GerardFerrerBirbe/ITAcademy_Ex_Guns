@@ -9,10 +9,10 @@ namespace Ex_Guns
             while (true)
             {
                 Console.WriteLine("Indica l'arma que vols utilitzar:");
-                Console.WriteLine($"0 - {Guns.Revolver}");
-                Console.WriteLine($"1 - {Guns.Rifle}");
-                Console.WriteLine($"2 - {Guns.Escopeta}");
-                Console.WriteLine($"3 - {Guns.Gatling}");
+                Console.WriteLine($"0 - {Soldier.Guns.Revolver}");
+                Console.WriteLine($"1 - {Soldier.Guns.Rifle}");
+                Console.WriteLine($"2 - {Soldier.Guns.Shotgun}");
+                Console.WriteLine($"3 - {Soldier.Guns.Gatling}");
 
                 while (true)
                 {
@@ -20,7 +20,7 @@ namespace Ex_Guns
 
                     if (option != "0" && option != "1" && option != "2" && option != "3")
                     {
-                        Console.WriteLine("Opcio incorrecta");
+                        Console.WriteLine("Opció incorrecta");
                     }
                     else
                     {
@@ -74,13 +74,13 @@ namespace Ex_Guns
                                                         {
                                                             var mygun4 = GetGun(option4);
 
-                                                            var soldado = new Soldado(mygun1, mygun2, mygun3, mygun4);
+                                                            var soldado = new Soldier(mygun1, mygun2, mygun3, mygun4);
                                                             Console.WriteLine(soldado.Disparar(mygun1, mygun2, mygun3, mygun4));
                                                             break;
                                                         }
                                                         else
                                                         {
-                                                            var soldado = new Soldado(mygun1, mygun2, mygun3);
+                                                            var soldado = new Soldier(mygun1, mygun2, mygun3);
                                                             Console.WriteLine(soldado.Disparar(mygun1, mygun2, mygun3));
                                                             break;
                                                         }
@@ -90,7 +90,7 @@ namespace Ex_Guns
                                             }
                                             else
                                             {
-                                                var soldado = new Soldado(mygun1, mygun2);
+                                                var soldado = new Soldier(mygun1, mygun2);
                                                 Console.WriteLine(soldado.Disparar(mygun1, mygun2));
                                                 break;
                                             }
@@ -100,7 +100,7 @@ namespace Ex_Guns
                                 }
                                 else
                                 {
-                                    var soldado = new Soldado(mygun1);
+                                    var soldado = new Soldier(mygun1);
                                     Console.WriteLine(soldado.Disparar(mygun1));
                                     break;
                                 }
@@ -111,7 +111,7 @@ namespace Ex_Guns
                 }
             }
 
-            static IArma GetGun(string input)
+            static IGun GetGun(string input)
             {
                 switch (input)
                 {
@@ -120,7 +120,7 @@ namespace Ex_Guns
                     case "1":
                         return new Rifle();
                     case "2":
-                        return new Escopeta();
+                        return new Shotgun();
                     case "3":
                         return new Gatling();
                     default:
@@ -129,11 +129,5 @@ namespace Ex_Guns
             }
         }
     }
-    public enum Guns
-    {
-        Revolver,
-        Rifle,
-        Escopeta,
-        Gatling
-    }
+    
 }

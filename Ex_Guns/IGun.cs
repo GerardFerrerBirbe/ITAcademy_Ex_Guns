@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public interface IArma
+    public interface IGun
     {
-        string Disparar();
+        string Shoot();
     }
 }

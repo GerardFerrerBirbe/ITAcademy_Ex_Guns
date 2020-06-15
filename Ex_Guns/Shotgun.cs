@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class Escopeta : IArma
+    public class Shotgun : IGun
     {
-        public string Disparar()
+        public string Shoot()
         {
             return "pum PUMMM !! ..";
         }
