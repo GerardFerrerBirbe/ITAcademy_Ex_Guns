@@ -31,9 +31,14 @@ namespace Ex_Guns
                     else
                     {
                         var soldierWeapon = GetSoldierWeapon(validresult.ValidatedResult);
-                        var soldier = new Soldier(Soldier.SoldierWeaponsSet, soldierWeapon);
+                        var soldier = new Soldier(Soldier.SoldierWeaponsSet,soldierWeapon);
 
-                        Console.WriteLine(soldier.Shoot(Soldier.SoldierWeaponsSet));
+                        soldier.Shoot(soldierWeapon, Soldier.WeaponFireList);
+
+                        foreach (var item in Soldier.WeaponFireList)
+                        {
+                            Console.WriteLine(item);
+                        }
                     }
                 }
                 if (unitOption == "1")
@@ -54,9 +59,8 @@ namespace Ex_Guns
                         Console.WriteLine(tank.Shoot(Tank.TankWeaponsSet));
                     }
                 }
-            }     
-        }                                
-
+            }
+        }
 
         #region Menus
         

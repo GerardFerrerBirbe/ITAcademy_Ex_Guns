@@ -7,23 +7,18 @@ namespace Ex_Guns
     public class Soldier : WarUnit
     {
         public static List<IWeapon> SoldierWeaponsSet { get; set; } = new List<IWeapon>();
+
+        public static List<string> WeaponFireList { get; set; } = new List<string>();
         
         public Soldier(List<IWeapon> soldierGunsSet, IWeapon _gun)
         {
-            soldierGunsSet.Add(_gun);            
-        }        
+            soldierGunsSet.Add(_gun);
+        }
 
-        public string Shoot(List<IWeapon> soldierGunsSet)
-        {
-            var output = "";
-            
-            foreach (var gun in soldierGunsSet)
-            {
-                var shoot = gun.Shoot();
-                output += "\n" + shoot;
-            }
-
-            return output;
+        public void Shoot(IWeapon soldierWeapon, List<string> weaponFireList)
+        {           
+            var shoot = soldierWeapon.Shoot();
+            weaponFireList.Add(shoot);
         }
 
         public enum SoldierWeapons
