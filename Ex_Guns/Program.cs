@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+
 
 namespace Ex_Guns
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            ShowSoldierMenu();
+        }
+
+        public static void ShowSoldierMenu()
         {
             while (true)
             {
@@ -14,120 +22,57 @@ namespace Ex_Guns
                 Console.WriteLine($"2 - {Soldier.Guns.Shotgun}");
                 Console.WriteLine($"3 - {Soldier.Guns.Gatling}");
 
-                while (true)
+                var option = Console.ReadLine();
+
+                var validresult = MenuValidation(option);
+
+                if (!validresult.IsSuccess)
                 {
-                    var option = Console.ReadLine();
-
-                    if (option != "0" && option != "1" && option != "2" && option != "3")
-                    {
-                        Console.WriteLine("Opció incorrecta");
-                    }
-                    else
-                    {
-                        while (true)
-                        {
-                            var mygun1 = GetGun(option);
-
-                            Console.WriteLine("En vols utilitzar alguna més? Sí és que sí, indica-la, si no, escriu 'no'");
-
-                            var option2 = Console.ReadLine();
-
-                            if (option2 != "no" && option2 != "0" && option2 != "1" && option2 != "2" && option2 != "3")
-                            {
-                                Console.WriteLine("Opcio incorrecta");
-                            }
-                            else
-                            {
-                                if (option2 == "0" || option2 == "1" || option2 == "2" || option2 == "3")
-                                {
-                                    while (true)
-                                    {
-                                        var mygun2 = GetGun(option2);
-
-                                        Console.WriteLine("En vols utilitzar alguna més? Sí és que sí, indica-la, si no, escriu 'no'");
-
-                                        var option3 = Console.ReadLine();
-
-                                        if (option3 != "no" && option3 != "0" && option3 != "1" && option3 != "2" && option3 != "3")
-                                        {
-                                            Console.WriteLine("Opcio incorrecta");
-                                        }
-                                        else
-                                        {
-                                            if (option3 == "0" || option3 == "1" || option3 == "2" || option3 == "3")
-                                            {
-                                                while (true)
-                                                {
-                                                    var mygun3 = GetGun(option3);
-
-                                                    Console.WriteLine("En vols utilitzar alguna més? Sí és que sí, indica-la, si no, escriu 'no'");
-
-                                                    var option4 = Console.ReadLine();
-
-                                                    if (option4 != "no" && option4 != "0" && option4 != "1" && option4 != "2" && option4 != "3")
-                                                    {
-                                                        Console.WriteLine("Opcio incorrecta");
-                                                    }
-                                                    else
-                                                    {
-                                                        if (option4 == "0" || option4 == "1" || option4 == "2" || option4 == "3")
-                                                        {
-                                                            var mygun4 = GetGun(option4);
-
-                                                            var soldado = new Soldier(mygun1, mygun2, mygun3, mygun4);
-                                                            Console.WriteLine(soldado.Disparar(mygun1, mygun2, mygun3, mygun4));
-                                                            break;
-                                                        }
-                                                        else
-                                                        {
-                                                            var soldado = new Soldier(mygun1, mygun2, mygun3);
-                                                            Console.WriteLine(soldado.Disparar(mygun1, mygun2, mygun3));
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                var soldado = new Soldier(mygun1, mygun2);
-                                                Console.WriteLine(soldado.Disparar(mygun1, mygun2));
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    break;
-                                }
-                                else
-                                {
-                                    var soldado = new Soldier(mygun1);
-                                    Console.WriteLine(soldado.Disparar(mygun1));
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    break;
+                    Console.WriteLine($"{validresult.ErrorMessage}");
                 }
-            }
-
-            static IGun GetGun(string input)
-            {
-                switch (input)
+                else
                 {
-                    case "0":
-                        return new Revolver();
-                    case "1":
-                        return new Rifle();
-                    case "2":
-                        return new Shotgun();
-                    case "3":
-                        return new Gatling();
-                    default:
-                        return null;
+                    var mygun = GetSoldierGun(validresult.ValidatedResult);
+                    var soldier = new Soldier(Soldier.GunsSet, mygun);
+
+                    Console.WriteLine(soldier.Shoot(Soldier.GunsSet));
                 }
             }
         }
-    }
-    
+        
+        static ValidationResult MenuValidation(string option)
+        {
+            var validResult = new ValidationResult();
+                       
+            if (option != "0" && option != "1" && option != "2" && option != "3")
+            {
+                validResult.ErrorMessage = "Opció incorrecta";
+                validResult.IsSuccess = false;
+            }
+            else
+            {
+                validResult.IsSuccess = true;
+                validResult.ValidatedResult = option;
+            }
+
+            return validResult;
+        }
+
+        static IGun GetSoldierGun(string input)
+        {
+            switch (input)
+            {
+                case "0":
+                    return new Revolver();
+                case "1":
+                    return new Rifle();
+                case "2":
+                    return new Shotgun();
+                case "3":
+                    return new Gatling();
+                default:
+                    return null;
+            }
+        }         
+    }    
 }
