@@ -27,7 +27,7 @@ namespace Ex_Guns
                     {
                         var soldierOption = ShowSoldierMenu();
 
-                        var validresult = MenuValidation(soldierOption);
+                        var validresult = SoldierMenuValidation(soldierOption);
 
                         if (!validresult.IsSuccess)
                         {
@@ -36,8 +36,8 @@ namespace Ex_Guns
                         else
                         {
                             var soldierWeapon = GetSoldierWeapon(validresult.ValidatedResult);
-                            var soldier = new Soldier(Soldier.SoldierWeaponsSet, soldierWeapon);
-
+                            var soldier = new Soldier(Soldier.SoldierWeaponsSet, soldierWeapon); 
+                                                        
                             soldier.Shoot(soldierWeapon, WarObject.WeaponFireList);
                         }
                     }
@@ -45,7 +45,7 @@ namespace Ex_Guns
                     {
                         var tankOption = ShowTankMenu();
 
-                        var validresult = MenuValidation(tankOption);
+                        var validresult = TankMenuValidation(tankOption);
 
                         if (!validresult.IsSuccess)
                         {
@@ -108,11 +108,29 @@ namespace Ex_Guns
         }
         #endregion
 
-        static ValidationResult MenuValidation(string option)
+        static ValidationResult SoldierMenuValidation(string option)
         {
             var validResult = new ValidationResult();
                        
             if (option != "0" && option != "1" && option != "2" && option != "3")
+            {
+                validResult.ErrorMessage = "Opció incorrecta";
+                validResult.IsSuccess = false;
+            }
+            else
+            {
+                validResult.IsSuccess = true;
+                validResult.ValidatedResult = option;
+            }
+
+            return validResult;
+        }
+
+        static ValidationResult TankMenuValidation(string option)
+        {
+            var validResult = new ValidationResult();
+
+            if (option != "0" && option != "1" && option != "2")
             {
                 validResult.ErrorMessage = "Opció incorrecta";
                 validResult.IsSuccess = false;

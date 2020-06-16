@@ -8,9 +8,9 @@ namespace Ex_Guns
     {
         public static List<IWeapon> SoldierWeaponsSet { get; set; } = new List<IWeapon>();        
         
-        public Soldier(List<IWeapon> soldierGunsSet, IWeapon _gun)
+        public Soldier(List<IWeapon> soldierGunsSet, IWeapon _weapon)
         {
-            soldierGunsSet.Add(_gun);
+            soldierGunsSet.Add(_weapon);
         }
 
         public void Shoot(IWeapon soldierWeapon, List<string> weaponFireList)
