@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ex_Guns
+namespace Ex_Guns.Controllers
 {
-    public class Revolver : IGun
+    public class Cannon : IWeapon
     {
         public string Shoot()
         {
-            return "Pum Pum ..";
+            return "PataPUUUUUUUUUM ..";
         }
     }
 }

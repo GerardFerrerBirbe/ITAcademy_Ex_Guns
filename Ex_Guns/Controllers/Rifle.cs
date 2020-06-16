@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class Gatling : IGun
+    public class Rifle : IWeapon
     {
         public string Shoot()
         {
-            return "Ra ta tatataaa ..";
+            return "Pum pum pum pum pum ..";
         }
     }
 }

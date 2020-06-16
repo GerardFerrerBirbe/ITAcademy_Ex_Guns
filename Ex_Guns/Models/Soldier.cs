@@ -4,20 +4,20 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class Soldier
+    public class Soldier : WarUnit
     {
-        public static List<IGun> GunsSet { get; set; } = new List<IGun>();        
+        public static List<IWeapon> SoldierWeaponsSet { get; set; } = new List<IWeapon>();
         
-        public Soldier(List<IGun> gunsSet, IGun _gun)
+        public Soldier(List<IWeapon> soldierGunsSet, IWeapon _gun)
         {
-            gunsSet.Add(_gun);
+            soldierGunsSet.Add(_gun);            
         }        
 
-        public string Shoot(List<IGun> gunsSet)
+        public string Shoot(List<IWeapon> soldierGunsSet)
         {
             var output = "";
             
-            foreach (var gun in gunsSet)
+            foreach (var gun in soldierGunsSet)
             {
                 var shoot = gun.Shoot();
                 output += "\n" + shoot;
@@ -26,7 +26,7 @@ namespace Ex_Guns
             return output;
         }
 
-        public enum Guns
+        public enum SoldierWeapons
         {
             Revolver,
             Rifle,

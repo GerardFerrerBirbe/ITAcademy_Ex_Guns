@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public interface IGun
+    public interface IWeapon
     {
         string Shoot();
     }

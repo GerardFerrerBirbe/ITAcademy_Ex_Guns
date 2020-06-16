@@ -4,11 +4,14 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class Rifle : IGun
+    public class WarUnit
     {
-        public string Shoot()
+
+
+        public enum Types
         {
-            return "Pum pum pum pum pum ..";
+            Soldier,
+            Tank            
         }
     }
 }
