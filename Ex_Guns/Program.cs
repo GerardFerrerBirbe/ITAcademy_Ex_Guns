@@ -12,51 +12,63 @@ namespace Ex_Guns
         {
             while (true)
             {
-                var unitOption = ShowWarUnitMenu();
+                Console.WriteLine("--Inici--");
+                Console.WriteLine("");
 
-                if (unitOption != "0" && unitOption != "1")
+                while (true)
                 {
-                    Console.WriteLine("Opció incorrecta");
-                }
-                if (unitOption == "0")
-                {
-                    var soldierOption = ShowSoldierMenu();
+                    var objectOption = ShowWarObjectMenu();
 
-                    var validresult = MenuValidation(soldierOption);
-
-                    if (!validresult.IsSuccess)
+                    if (objectOption != "0" && objectOption != "1" && objectOption != "2")
                     {
-                        Console.WriteLine($"{validresult.ErrorMessage}");
+                        Console.WriteLine("Opció incorrecta");
                     }
-                    else
+                    if (objectOption == "0")
                     {
-                        var soldierWeapon = GetSoldierWeapon(validresult.ValidatedResult);
-                        var soldier = new Soldier(Soldier.SoldierWeaponsSet,soldierWeapon);
+                        var soldierOption = ShowSoldierMenu();
 
-                        soldier.Shoot(soldierWeapon, Soldier.WeaponFireList);
+                        var validresult = MenuValidation(soldierOption);
 
-                        foreach (var item in Soldier.WeaponFireList)
+                        if (!validresult.IsSuccess)
+                        {
+                            Console.WriteLine($"{validresult.ErrorMessage}");
+                        }
+                        else
+                        {
+                            var soldierWeapon = GetSoldierWeapon(validresult.ValidatedResult);
+                            var soldier = new Soldier(Soldier.SoldierWeaponsSet, soldierWeapon);
+
+                            soldier.Shoot(soldierWeapon, WarObject.WeaponFireList);
+                        }
+                    }
+                    if (objectOption == "1")
+                    {
+                        var tankOption = ShowTankMenu();
+
+                        var validresult = MenuValidation(tankOption);
+
+                        if (!validresult.IsSuccess)
+                        {
+                            Console.WriteLine($"{validresult.ErrorMessage}");
+                        }
+                        else
+                        {
+                            var tankWeapon = GetTankWeapon(validresult.ValidatedResult);
+                            var tank = new Tank(Tank.TankWeaponsSet, tankWeapon);
+
+                            tank.Shoot(tankWeapon, WarObject.WeaponFireList);
+                        }
+                    }
+                    if (objectOption == "2")
+                    {
+                        foreach (var item in WarObject.WeaponFireList)
                         {
                             Console.WriteLine(item);
                         }
-                    }
-                }
-                if (unitOption == "1")
-                {
-                    var tankOption = ShowTankMenu();
 
-                    var validresult = MenuValidation(tankOption);
-
-                    if (!validresult.IsSuccess)
-                    {
-                        Console.WriteLine($"{validresult.ErrorMessage}");
-                    }
-                    else
-                    {
-                        var tankWeapon = GetTankWeapon(validresult.ValidatedResult);
-                        var tank = new Tank(Tank.TankWeaponsSet, tankWeapon);
-
-                        Console.WriteLine(tank.Shoot(Tank.TankWeaponsSet));
+                        WarObject.WeaponFireList.Clear();
+                        
+                        break;
                     }
                 }
             }
@@ -64,11 +76,12 @@ namespace Ex_Guns
 
         #region Menus
         
-        public static string ShowWarUnitMenu()
+        public static string ShowWarObjectMenu()
         {
-            Console.WriteLine("Escull l'unitat de guerra que vols utilitzar:");
-            Console.WriteLine($"0 - {WarUnit.Types.Soldier}");
-            Console.WriteLine($"1 - {WarUnit.Types.Tank}");
+            Console.WriteLine("Escull l'objecte que vols utilitzar o dispara:");
+            Console.WriteLine($"0 - {WarObject.Types.Soldier}");
+            Console.WriteLine($"1 - {WarObject.Types.Tank}");
+            Console.WriteLine("2 - per disparar");
 
             return Console.ReadLine();
         }

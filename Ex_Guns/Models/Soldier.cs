@@ -4,11 +4,9 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class Soldier : WarUnit
+    public class Soldier : WarObject
     {
-        public static List<IWeapon> SoldierWeaponsSet { get; set; } = new List<IWeapon>();
-
-        public static List<string> WeaponFireList { get; set; } = new List<string>();
+        public static List<IWeapon> SoldierWeaponsSet { get; set; } = new List<IWeapon>();        
         
         public Soldier(List<IWeapon> soldierGunsSet, IWeapon _gun)
         {

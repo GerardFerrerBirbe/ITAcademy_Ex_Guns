@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class WarUnit
+    public class WarObject
     {
-
+        public static List<string> WeaponFireList { get; set; } = new List<string>();
 
         public enum Types
         {

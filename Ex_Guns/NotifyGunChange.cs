@@ -7,7 +7,7 @@ namespace Ex_Guns
 {
     public class NotifyGunChange
     {
-        public WarUnit EntityName { get; set; }
+        public WarObject EntityName { get; set; }
 
         public IWeapon GunName { get; set; }
                 
