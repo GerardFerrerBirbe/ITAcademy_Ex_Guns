@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public interface IWeapon
+    public interface INotifyWeaponChange
     {
-        string WeaponName { get; set; }
-        string Shoot();
+        string NotifyChange(IWeapon currentWeapon);
     }
 }

@@ -6,6 +6,7 @@ namespace Ex_Guns.Controllers
 {
     public class Grenade : IWeapon
     {
+        public string WeaponName { get; set; }
         public string Shoot()
         {
             return " (Grenade) Rascapatapuuuum ..";

@@ -4,20 +4,28 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class Tank : WarObject
+    public class Tank : Player
     {
-        public static List<IWeapon> TankWeaponsSet { get; set; } = new List<IWeapon>();
-        
-        public Tank(List<IWeapon> tankGunsSet, IWeapon _weapon)
+        protected IWeapon currentWeapon;
+
+        protected INotifyWeaponChange notifyWeaponChange;
+
+        public Tank(IWeapon _currentWeapon, INotifyWeaponChange _notifyWeaponChange)
         {
-            tankGunsSet.Add(_weapon);            
+            this.currentWeapon = _currentWeapon;
+            this.notifyWeaponChange = _notifyWeaponChange;
+            this.PlayerName = "tank";
         }
 
-        public void Shoot(IWeapon tankWeapon, List<string> weaponFireList)
+        public string Shoot()
         {
-            var shoot = tankWeapon.Shoot();
-            weaponFireList.Add(shoot);
+            return this.currentWeapon.Shoot();
         }
+
+        public string NotifyChange(IWeapon currentWeapon)
+        {
+            return "El " + this.PlayerName + this.notifyWeaponChange.NotifyChange(currentWeapon);
+        }        
 
         public enum TankWeapons
         {

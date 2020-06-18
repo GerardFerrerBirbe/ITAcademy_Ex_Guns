@@ -5,13 +5,11 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class NotifyWeaponChange
+    public class NotifyWeaponChange : INotifyWeaponChange
     {
-        //public WarObject EntityName { get; set; }
-
-        //public IWeapon GunName { get; set; }
-
-        //public string GunStatus { get; set; }
-
+        public string NotifyChange(IWeapon currentWeapon)
+        {
+            return $" ha afegit un {currentWeapon.WeaponName}";
+        }
     }
 }

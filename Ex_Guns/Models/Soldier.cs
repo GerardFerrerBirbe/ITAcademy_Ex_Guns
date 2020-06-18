@@ -4,19 +4,27 @@ using System.Text;
 
 namespace Ex_Guns
 {
-    public class Soldier : WarObject
-    {
-        public static List<IWeapon> SoldierWeaponsSet { get; set; } = new List<IWeapon>();        
-        
-        public Soldier(List<IWeapon> soldierGunsSet, IWeapon _weapon)
+    public class Soldier : Player
+    {        
+        protected IWeapon currentWeapon;
+
+        protected INotifyWeaponChange notifyWeaponChange;
+
+        public Soldier(IWeapon _currentWeapon, INotifyWeaponChange _notifyWeaponChange)
         {
-            soldierGunsSet.Add(_weapon);
+            this.currentWeapon = _currentWeapon;
+            this.notifyWeaponChange = _notifyWeaponChange;
+            this.PlayerName = "soldat";
         }
 
-        public void Shoot(IWeapon soldierWeapon, List<string> weaponFireList)
-        {           
-            var shoot = soldierWeapon.Shoot();
-            weaponFireList.Add(shoot);
+        public string Shoot()
+        {
+            return this.currentWeapon.Shoot();
+        }
+
+        public string NotifyChange(IWeapon currentWeapon)
+        {
+            return "El " + this.PlayerName + this.notifyWeaponChange.NotifyChange(currentWeapon);
         }
 
         public enum SoldierWeapons

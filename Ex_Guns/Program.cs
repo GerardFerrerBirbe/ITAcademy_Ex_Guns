@@ -1,6 +1,7 @@
 ﻿using Ex_Guns.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 
 
@@ -10,6 +11,7 @@ namespace Ex_Guns
     {
         static void Main(string[] args)
         {
+
             while (true)
             {
                 Console.WriteLine("--Inici--");
@@ -17,7 +19,7 @@ namespace Ex_Guns
 
                 while (true)
                 {
-                    var objectOption = ShowWarObjectMenu();
+                    var objectOption = ShowPlayerMenu();
 
                     if (objectOption != "0" && objectOption != "1" && objectOption != "2")
                     {
@@ -36,9 +38,12 @@ namespace Ex_Guns
                         else
                         {
                             var soldierWeapon = GetSoldierWeapon(validresult.ValidatedResult);
-                            var soldier = new Soldier(Soldier.SoldierWeaponsSet, soldierWeapon); 
-                                                        
-                            soldier.Shoot(soldierWeapon, WarObject.WeaponFireList);
+                            var notifychange = new NotifyWeaponChange();
+                            var soldier = new Soldier(soldierWeapon, notifychange);
+                            var notif = soldier.NotifyChange(soldierWeapon);
+                            Console.WriteLine(notif);
+                            var shoot = soldier.Shoot();
+                            Player.ShootSet.Add(shoot);
                         }
                     }
                     if (objectOption == "1")
@@ -54,20 +59,23 @@ namespace Ex_Guns
                         else
                         {
                             var tankWeapon = GetTankWeapon(validresult.ValidatedResult);
-                            var tank = new Tank(Tank.TankWeaponsSet, tankWeapon);
-
-                            tank.Shoot(tankWeapon, WarObject.WeaponFireList);
+                            var notifychange = new NotifyWeaponChange();
+                            var tank = new Tank(tankWeapon, notifychange);
+                            var notif = tank.NotifyChange(tankWeapon);
+                            Console.WriteLine(notif);
+                            var shoot = tank.Shoot();
+                            Player.ShootSet.Add(shoot);
                         }
                     }
                     if (objectOption == "2")
                     {
-                        foreach (var item in WarObject.WeaponFireList)
+                        foreach (var item in Player.ShootSet)
                         {
                             Console.WriteLine(item);
                         }
 
-                        WarObject.WeaponFireList.Clear();
-                        
+                        Player.ShootSet.Clear();
+
                         break;
                     }
                 }
@@ -76,11 +84,11 @@ namespace Ex_Guns
 
         #region Menus
         
-        public static string ShowWarObjectMenu()
+        public static string ShowPlayerMenu()
         {
-            Console.WriteLine("Escull l'objecte que vols utilitzar o dispara:");
-            Console.WriteLine($"0 - {WarObject.Types.Soldier}");
-            Console.WriteLine($"1 - {WarObject.Types.Tank}");
+            Console.WriteLine("Escull el jugador que vols utilitzar o dispara:");
+            Console.WriteLine($"0 - {Player.Types.Soldier}");
+            Console.WriteLine($"1 - {Player.Types.Tank}");
             Console.WriteLine("2 - per disparar");
 
             return Console.ReadLine();
@@ -149,13 +157,13 @@ namespace Ex_Guns
             switch (input)
             {
                 case "0":
-                    return new Revolver();
+                    return new Revolver {WeaponName = "Revolver" };
                 case "1":
-                    return new Rifle();
+                    return new Rifle { WeaponName = "Rifle" };
                 case "2":
-                    return new Shotgun();
+                    return new Shotgun { WeaponName = "Shotgun" };
                 case "3":
-                    return new Gatling();
+                    return new Gatling { WeaponName = "Gatling" };
                 default:
                     return null;
             }
@@ -166,11 +174,11 @@ namespace Ex_Guns
             switch (input)
             {
                 case "0":
-                    return new Cannon();
+                    return new Cannon { WeaponName = "Cannon" };
                 case "1":
-                    return new Grenade();
+                    return new Grenade { WeaponName = "Grenade" };
                 case "2":
-                    return new Shotgun();
+                    return new Shotgun { WeaponName = "Shotgun" };
                 default:
                     return null;
             }

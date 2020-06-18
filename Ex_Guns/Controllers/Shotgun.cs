@@ -6,6 +6,7 @@ namespace Ex_Guns
 {
     public class Shotgun : IWeapon
     {
+        public string WeaponName { get; set; }
         public string Shoot()
         {
             return "pum PUMMM !! ..";
